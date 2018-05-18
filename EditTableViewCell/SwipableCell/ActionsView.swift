@@ -74,6 +74,7 @@ class ActionView: UIView {
     private var leadingConstraint: NSLayoutConstraint?
 
     private(set) var isConfirming = false
+    private var isFirstTap = true
 
     init(action: SwipedAction) {
         self.action = action
@@ -107,6 +108,12 @@ class ActionView: UIView {
     }
 
     @objc private func didTap() {
+
+        if !isFirstTap {
+            return
+        }
+        isFirstTap = false
+
         if case .custom(let title) = action.needConfirm, !isConfirming {
 
             isConfirming = true

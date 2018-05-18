@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name         = 'SwipableCell'
-    s.version      = '0.1.0'
+    s.version      = '0.1.1'
     s.summary      = 'Swipable cell, support UITableView and ASTableView from Texture'
     s.homepage     = 'https://github.com/ChaselAn/SwipableCell'
     s.license      = 'MIT'
