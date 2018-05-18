@@ -10,7 +10,7 @@ import UIKit
 
 class TestTableViewController: UIViewController {
 
-    private lazy var tableView = DemoTableView()
+    private lazy var tableView = UITableView()
     private var count = 20
 
     override func viewDidLoad() {
@@ -24,9 +24,7 @@ class TestTableViewController: UIViewController {
 
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.reduceCount = { [weak self] in
-            self?.count -= 1
-        }
+        tableView.swipableCellDelegate = self
         tableView.register(DemoTableViewCell.self, forCellReuseIdentifier: "DemoTableViewCell")
     }
 
@@ -52,12 +50,11 @@ extension TestTableViewController: UITableViewDelegate {
     }
 }
 
-class DemoTableView: UITableView, SwipeTableViewCellDelegate {
+extension TestTableViewController: UITableViewSwipableCellDelegate {
 
-    var reduceCount: (() -> Void)?
     func swipe_tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath) -> [SwipedAction] {
         let deleteAction = SwipedAction(title: "删除") { [weak self, weak tableView] (_) in
-            self?.reduceCount?()
+            self?.count -= 1
             tableView?.deleteRows(at: [indexPath], with: .automatic)
         }
         deleteAction.needConfirm = .custom(title: "确认删除")

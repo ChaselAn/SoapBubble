@@ -19,7 +19,7 @@ class TestASTableViewController: UIViewController {
 
         view.addSubnode(tableNode)
         tableNode.dataSource = self
-        tableNode.circle_swipeDelegate = self
+        tableNode.swipableCellDelegate = self
     }
 
     override func viewDidLayoutSubviews() {

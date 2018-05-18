@@ -215,7 +215,7 @@ extension SwipableCellNode {
         self.actionsView = nil
 
         guard let indexPath = tableNode.indexPath(for: self),
-            let source = tableNode.circle_swipeDelegate,
+            let source = tableNode.swipableCellDelegate,
             source.swipe_tableNode(tableNode, canEditRowAt: indexPath) else { return false }
 
         let actions = source.swipe_tableNode(tableNode, editActionsOptionsForRowAt: indexPath)
@@ -245,9 +245,7 @@ extension SwipableCellNode {
     }
 
     private func reset() {
-        //        isActionShowing = false
         clipsToBounds = false
-        //        isHideSwiping = false
         actionsView?.removeFromSuperview()
         actionsView = nil
     }

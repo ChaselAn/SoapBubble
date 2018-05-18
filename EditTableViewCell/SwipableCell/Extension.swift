@@ -9,42 +9,6 @@
 import UIKit
 import AsyncDisplayKit
 
-public protocol SwipeTableViewCellDelegate {
-    func swipe_tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath) -> [SwipedAction]
-
-    func swipe_tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool
-}
-
-//public class SwipedAction {
-//
-//    public enum ConfirmStyle {
-//        case none
-//        case custom(title: String)
-//    }
-//
-//    public var title: String
-//    public var backgroundColor: UIColor = UIColor.red
-//    public var titleColor: UIColor = UIColor.white
-//    public var titleFont: UIFont = UIFont.systemFont(ofSize: 14)
-//    public var preferredWidth: CGFloat?
-//    public var handler: ((SwipedAction) -> Void)?
-//    public var needConfirm = ConfirmStyle.none
-//
-//    public init(title: String, handler: ((SwipedAction) -> Void)?) {
-//        self.title = title
-//        self.handler = handler
-//    }
-//
-//    public init(title: String, backgroundColor: UIColor, titleColor: UIColor, titleFont: UIFont, preferredWidth: CGFloat?, handler: ((SwipedAction) -> Void)?) {
-//        self.title = title
-//        self.backgroundColor = backgroundColor
-//        self.titleColor = titleColor
-//        self.titleFont = titleFont
-//        self.preferredWidth = preferredWidth
-//        self.handler = handler
-//    }
-//}
-
 extension String {
 
     func getWidth(withFont font: UIFont) -> CGFloat {
@@ -54,14 +18,29 @@ extension String {
 
 extension ASTableNode {
 
-    private static var circle_swipeDelegateKey: Character!
+    private static var swipableCellDelegateKey: Character!
 
-    public weak var circle_swipeDelegate: ASTableNodeSwipableDelegate? {
+    public weak var swipableCellDelegate: ASTableNodeSwipableDelegate? {
         set {
-            objc_setAssociatedObject(self, &ASTableNode.circle_swipeDelegateKey, newValue, .OBJC_ASSOCIATION_RETAIN)
+            objc_setAssociatedObject(self, &ASTableNode.swipableCellDelegateKey, newValue, .OBJC_ASSOCIATION_RETAIN)
         }
         get {
-            return objc_getAssociatedObject(self, &ASTableNode.circle_swipeDelegateKey) as? ASTableNodeSwipableDelegate
+            return objc_getAssociatedObject(self, &ASTableNode.swipableCellDelegateKey) as? ASTableNodeSwipableDelegate
+        }
+    }
+
+}
+
+extension UITableView {
+
+    private static var swipableCellDelegateKey: Character!
+
+    public weak var swipableCellDelegate: UITableViewSwipableCellDelegate? {
+        set {
+            objc_setAssociatedObject(self, &UITableView.swipableCellDelegateKey, newValue, .OBJC_ASSOCIATION_RETAIN)
+        }
+        get {
+            return objc_getAssociatedObject(self, &UITableView.swipableCellDelegateKey) as? UITableViewSwipableCellDelegate
         }
     }
 
