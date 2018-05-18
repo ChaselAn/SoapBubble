@@ -156,6 +156,13 @@ open class SwipableCell: UITableViewCell {
 extension SwipableCell {
 
     private func beginPan(panGesture: UIPanGestureRecognizer) {
+        guard let tableView = tableView,
+            let indexPath = tableView.indexPath(for: self),
+            let source = tableView.swipableCellDelegate,
+            source.swipe_tableView(tableView, canEditRowAt: indexPath) else {
+                removeGestureRecognizer(panGesture)
+                return
+        }
         stopAnimatorIfNeeded()
         originalX = frame.origin.x
         guard let target = panGesture.view else { return }

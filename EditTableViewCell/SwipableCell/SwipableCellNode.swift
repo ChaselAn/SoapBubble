@@ -138,6 +138,13 @@ open class SwipableCellNode: ASCellNode {
 extension SwipableCellNode {
 
     private func beginPan(panGesture: UIPanGestureRecognizer) {
+        guard let tableNode = tableNode,
+            let indexPath = tableNode.indexPath(for: self),
+            let source = tableNode.swipableCellDelegate,
+            source.swipe_tableNode(tableNode, canEditRowAt: indexPath) else {
+                view.removeGestureRecognizer(panGesture)
+                return
+        }
         stopAnimatorIfNeeded()
         originalX = frame.origin.x
         guard let target = panGesture.view else { return }

@@ -40,7 +40,8 @@ extension TestASTableViewController: ASTableDataSource {
     }
 
     func tableNode(_ tableNode: ASTableNode, nodeForRowAt indexPath: IndexPath) -> ASCellNode {
-        let cell = TextureDemoCellNode(tableNode: tableNode)
+        let cell: ASCellNode
+        cell = TextureDemoCellNode(tableNode: tableNode)
         return cell
     }
 }
