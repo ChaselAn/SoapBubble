@@ -109,11 +109,6 @@ class ActionView: UIView {
 
     @objc private func didTap() {
 
-        if !isFirstTap {
-            return
-        }
-        isFirstTap = false
-
         if case .custom(let title) = action.needConfirm, !isConfirming {
 
             isConfirming = true
@@ -140,6 +135,10 @@ class ActionView: UIView {
                     self?.confirmAnimationCompleted?()
             })
         } else {
+            if !isFirstTap {
+                return
+            }
+            isFirstTap = false
             action.handler?(action)
         }
     }
