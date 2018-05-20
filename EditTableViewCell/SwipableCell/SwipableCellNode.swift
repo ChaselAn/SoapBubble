@@ -229,10 +229,8 @@ extension SwipableCellNode {
         let actionsView = ActionsView(actions: actions)
         actionsView.leftMoveWhenConfirm = { [weak self] in
 
-            UIView.animate(withDuration: 0.15, animations: { [weak self] in
-                guard let strongSelf = self else { return }
-                strongSelf.frame.origin.x = -actionsView.preferredWidth
-            })
+            guard let strongSelf = self else { return }
+            strongSelf.frame.origin.x = -actionsView.preferredWidth
         }
 
         view.addSubview(actionsView)

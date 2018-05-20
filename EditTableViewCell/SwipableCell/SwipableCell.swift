@@ -246,11 +246,9 @@ extension SwipableCell {
         let actions = source.swipe_tableView(tableView, editActionsOptionsForRowAt: indexPath)
         let actionsView = ActionsView(actions: actions)
         actionsView.leftMoveWhenConfirm = { [weak self] in
-
-            UIView.animate(withDuration: 0.15, animations: { [weak self] in
-                guard let strongSelf = self else { return }
-                strongSelf.frame.origin.x = -actionsView.preferredWidth
-            })
+            
+            guard let strongSelf = self else { return }
+            strongSelf.frame.origin.x = -actionsView.preferredWidth
         }
 
         addSubview(actionsView)
