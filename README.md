@@ -13,7 +13,7 @@
 - With Cocoapods:
 
 ```ruby
-pod 'SwipableCell', '~> 1.0.0'
+pod 'SwipableCell', '~> 0.1.2'
 # Then, run the following command:
 $ pod install
 ```
@@ -144,3 +144,6 @@ extension TestASTableViewController: ASTableDataSource {
 }
 ```
 
+### Note
+
+* The current version is temporarily dependent on [Texture](https://github.com/TextureGroup/Texture), and later versions will be stripped out. Use on demand.
