@@ -116,7 +116,7 @@ class ActionView: UIView {
             titleLabel.text = title
             superview?.bringSubview(toFront: self)
 
-            UIView.animate(withDuration: 0.15, animations: {
+            UIView.animate(withDuration: 0.15, delay: 0, options: [.allowUserInteraction], animations: {
                 [weak self] in
                 guard let strongSelf = self else { return }
                 self?.frame.origin.x = 0
