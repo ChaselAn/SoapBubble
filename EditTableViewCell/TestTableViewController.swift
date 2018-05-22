@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SoapBubble
 
 class TestTableViewController: UIViewController {
 

@@ -8,6 +8,7 @@
 
 import UIKit
 import AsyncDisplayKit
+import SoapBubble
 
 class TestASTableViewController: UIViewController {
 
