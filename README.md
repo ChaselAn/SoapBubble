@@ -29,8 +29,15 @@ $ pod install
 * tableView
 
 ```swift
-class DemoTableView: UITableView, SwipeTableViewCellDelegate {
-
+class TestTableViewController: UIViewController, SwipeTableViewCellDelegate {
+	
+    private lazy var tableView = UITableView()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tableView..swipableCellDelegate = self
+    }
+    
     func swipe_tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath) -> [SwipedAction] {
         let deleteAction = SwipedAction(title: "delete") { (_) in
             // delete
@@ -78,8 +85,15 @@ tableView.register(SwipableCell.self, forCellReuseIdentifier: "DemoTableViewCell
 
 ```swift
 import AsyncDisplayKit
-extension TestASTableView: ASTableNode, ASTableNodeSwipableDelegate {
+extension TestASTableViewController: UIViewController, ASTableNodeSwipableDelegate {
 
+    private lazy var tableNode = ASTableNode()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tableNode.swipableCellDelegate = self
+    }
+    
     public func swipe_tableNode(_ tableNode: ASTableNode, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
