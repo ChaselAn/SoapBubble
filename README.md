@@ -1,4 +1,4 @@
-# SwipableCell
+# SoapBubble
 
 * A Reduser-based swipable cell
 * support UITableView
@@ -13,7 +13,7 @@
 - With Cocoapods:
 
 ```ruby
-pod 'SwipableCell', '~> 0.1.2'
+pod 'SoapBubble', '~> 0.1.3'
 # Then, run the following command:
 $ pod install
 ```
