@@ -20,7 +20,7 @@ $ pod install
 
 ### Example
 
-<img width="250" height="445" src="https://raw.githubusercontent.com/ChaselAn/SoapBubble/master/SoapBubble.gif"/>
+<img width="250" height="445" src="https://github.com/ChaselAn/SoapBubble/blob/master/SoapBubble.gif"/>
 
 ### How to use
 
