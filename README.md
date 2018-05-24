@@ -20,6 +20,8 @@ $ pod install
 
 ### Example
 
+<img width="250" height="445" src="https://raw.githubusercontent.com/ChaselAn/SoapBubble/master/SoapBubble.gif"/>
+
 ### How to use
 
 #### UITableView
