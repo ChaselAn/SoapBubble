@@ -262,6 +262,8 @@ extension SwipableCell {
 
         actionsView.setNeedsUpdateConstraints()
 
+        layoutIfNeeded()
+
         self.actionsView = actionsView
 
         return true
