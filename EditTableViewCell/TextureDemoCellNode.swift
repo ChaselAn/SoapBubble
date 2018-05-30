@@ -10,14 +10,15 @@ import UIKit
 import AsyncDisplayKit
 import SoapBubble
 
-class TextureDemoCellNode: SwipableCellNode {
+class TextureDemoCellNode: ASCellNode, SwipableSource {
 
     let textNode = ASTextNode()
 
-    override init(tableNode: ASTableNode) {
-        super.init(tableNode: tableNode)
+    override init() {
+        super.init()
 
         view.backgroundColor = UIColor.green
+        view.soapBubble.swipableDelegate = self
 
         addSubnode(textNode)
         textNode.attributedText = NSAttributedString(string: "哈哈哈哈哈哈哈哈哈哈", attributes: [.foregroundColor: UIColor.black])
@@ -32,5 +33,9 @@ class TextureDemoCellNode: SwipableCellNode {
 
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    func targetView() -> UIView {
+        return view
     }
 }

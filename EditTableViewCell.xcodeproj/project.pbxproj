@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4DB4FEB160736DE87E32931C /* Pods_EditTableViewCell.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0C7A01721E6C24EBBE735E5 /* Pods_EditTableViewCell.framework */; };
 		C916365670BD3AAC21C8099D /* Pods_SoapBubble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C7022AD65BF9A249375C274 /* Pods_SoapBubble.framework */; };
+		F13A4EF720BE4C1B00F85B83 /* SwipableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13A4EF620BE4C1B00F85B83 /* SwipableView.swift */; };
 		F1A694262068908B00F70814 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A694252068908B00F70814 /* AppDelegate.swift */; };
 		F1A694282068908B00F70814 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A694272068908B00F70814 /* ViewController.swift */; };
 		F1A6942B2068908B00F70814 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1A694292068908B00F70814 /* Main.storyboard */; };
@@ -61,6 +62,7 @@
 		A0C7A01721E6C24EBBE735E5 /* Pods_EditTableViewCell.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EditTableViewCell.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3AEDF88802317CDE75C59EC /* Pods-EditTableViewCell.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EditTableViewCell.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EditTableViewCell/Pods-EditTableViewCell.debug.xcconfig"; sourceTree = "<group>"; };
 		E2D385B20F3CDEDB7F91DD5C /* Pods-EditTableViewCell.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EditTableViewCell.release.xcconfig"; path = "Pods/Target Support Files/Pods-EditTableViewCell/Pods-EditTableViewCell.release.xcconfig"; sourceTree = "<group>"; };
+		F13A4EF620BE4C1B00F85B83 /* SwipableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipableView.swift; sourceTree = "<group>"; };
 		F1A694222068908B00F70814 /* EditTableViewCell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EditTableViewCell.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1A694252068908B00F70814 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1A694272068908B00F70814 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 				F1DD7E1720AE76860029C3AD /* SwipedAction.swift */,
 				F1B81A4C206DE68500EBB056 /* SwipableCellNode.swift */,
 				F1DD7E2020AE803F0029C3AD /* SwipableCell.swift */,
+				F13A4EF620BE4C1B00F85B83 /* SwipableView.swift */,
 				F1BCE8B720AAD88C00166590 /* SwipableHead.swift */,
 				F1B8E37520B3CE5C001EBEA6 /* SoapBubble.h */,
 				F1B8E37620B3CE5C001EBEA6 /* Info.plist */,
@@ -379,6 +382,7 @@
 				F1B8E38420B3CE71001EBEA6 /* SwipableCellNode.swift in Sources */,
 				F1B8E38320B3CE71001EBEA6 /* SwipedAction.swift in Sources */,
 				F1B8E38620B3CE71001EBEA6 /* SwipableHead.swift in Sources */,
+				F13A4EF720BE4C1B00F85B83 /* SwipableView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

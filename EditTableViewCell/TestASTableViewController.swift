@@ -42,7 +42,7 @@ extension TestASTableViewController: ASTableDataSource {
 
     func tableNode(_ tableNode: ASTableNode, nodeForRowAt indexPath: IndexPath) -> ASCellNode {
         let cell: ASCellNode
-        cell = TextureDemoCellNode(tableNode: tableNode)
+        cell = TextureDemoCellNode()
         return cell
     }
 }
@@ -68,7 +68,7 @@ extension TestASTableViewController: ASTableNodeSwipableDelegate {
         let markAction: SwipedAction
 
         let markAsRead = SwipedAction(title: "标记未读", handler: { (_) in
-            cell.hideSwipe(animated: true)
+//            cell.hideSwipe(animated: true)
         })
         markAction = markAsRead
 

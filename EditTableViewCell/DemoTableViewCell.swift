@@ -9,6 +9,21 @@
 import UIKit
 import SoapBubble
 
-class DemoTableViewCell: SwipableCell {
+class DemoTableViewCell: UITableViewCell, SwipableSource {
 
+    weak var tableView: UITableView!
+
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        soapBubble.swipableDelegate = self
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+
+    func targetView() -> UIView {
+        return self
+    }
 }

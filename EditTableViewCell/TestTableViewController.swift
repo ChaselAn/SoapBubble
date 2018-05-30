@@ -38,7 +38,8 @@ extension TestTableViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "DemoTableViewCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "DemoTableViewCell", for: indexPath) as! DemoTableViewCell
+        cell.tableView = tableView
         cell.textLabel?.text = "哈哈哈哈哈哈哈哈哈哈"
         return cell
     }
