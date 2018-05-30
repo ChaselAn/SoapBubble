@@ -56,9 +56,12 @@ extension TestASTableViewController: ASTableNodeSwipableDelegate {
     public func swipe_tableNode(_ tableNode: ASTableNode, editActionsOptionsForRowAt indexPath: IndexPath) -> [SwipedAction] {
 
         guard let cell = tableNode.nodeForRow(at: indexPath) as? TextureDemoCellNode else { return [] }
-        let deleteAction = SwipedAction(title: "删除", backgroundColor: #colorLiteral(red: 1, green: 0.01568627451, blue: 0.3450980392, alpha: 1), titleColor: UIColor.white, titleFont: UIFont.systemFont(ofSize: 17, weight: .medium), preferredWidth: nil, handler: { [weak tableNode, weak self] (_) in
+        let deleteAction = SwipedAction(title: "删除", backgroundColor: #colorLiteral(red: 1, green: 0.01568627451, blue: 0.3450980392, alpha: 1), titleColor: UIColor.white, titleFont: UIFont.systemFont(ofSize: 17, weight: .medium), preferredWidth: nil, handler: { [weak tableNode, weak self] (action) in
+            action.isEnabled = false
             self?.count -= 1
             tableNode?.deleteRows(at: [indexPath], with: .automatic)
+            action.isEnabled = true
+
         })
         deleteAction.needConfirm = .custom(title: "确认删除")
 

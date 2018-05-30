@@ -20,9 +20,11 @@ public class SwipedAction {
     public var titleColor: UIColor = UIColor.white
     public var titleFont: UIFont = UIFont.systemFont(ofSize: 14)
     public var preferredWidth: CGFloat?
-    public var handler: ((SwipedAction) -> Void)?
     public var needConfirm = ConfirmStyle.none
     public var horizontalMargin: CGFloat = 10
+    public var handler: ((SwipedAction) -> Void)?
+
+    public var isEnabled: Bool = true
 
     public init(title: String, handler: ((SwipedAction) -> Void)?) {
         self.title = title

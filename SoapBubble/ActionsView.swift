@@ -17,8 +17,10 @@ class ActionsView: UIView {
 
     var leftMoveWhenConfirm: (() -> Void)?
 
-    init(actions: [SwipedAction]) {
+    private let actions: [SwipedAction]
 
+    init(actions: [SwipedAction]) {
+        self.actions = actions
         super.init(frame: .zero)
 
         clipsToBounds = true
@@ -49,6 +51,10 @@ class ActionsView: UIView {
         }
     }
 
+    func setEnabled() {
+        actions.forEach({ $0.isEnabled = true })
+    }
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -74,7 +80,6 @@ class ActionView: UIView {
     private var leadingConstraint: NSLayoutConstraint?
 
     private(set) var isConfirming = false
-    private var isFirstTap = true
 
     init(action: SwipedAction) {
         self.action = action
@@ -109,6 +114,8 @@ class ActionView: UIView {
 
     @objc private func didTap() {
 
+        if !action.isEnabled { return }
+
         if case .custom(let title) = action.needConfirm, !isConfirming {
 
             isConfirming = true
@@ -135,10 +142,6 @@ class ActionView: UIView {
                     self?.confirmAnimationCompleted?()
             })
         } else {
-            if !isFirstTap {
-                return
-            }
-            isFirstTap = false
             action.handler?(action)
         }
     }

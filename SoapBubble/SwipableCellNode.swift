@@ -243,6 +243,7 @@ extension SwipableCellNode {
         actionsView.leftAnchor.constraint(equalTo: view.rightAnchor).isActive = true
 
         actionsView.setNeedsUpdateConstraints()
+        layoutIfNeeded()
 
         self.actionsView = actionsView
 
