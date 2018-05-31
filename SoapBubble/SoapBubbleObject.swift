@@ -1,5 +1,5 @@
 //
-//  SwipableView.swift
+//  SoapBubbleObject.swift
 //  SoapBubble
 //
 //  Created by ancheng on 2018/5/30.
@@ -17,17 +17,18 @@ public protocol SoapBubbleSource: class {
     func canSwipe(in object: SoapBubbleObject) -> Bool
 }
 
-class SwipableManager {
-    static let shared = SwipableManager()
+class SoapBubbleManager {
+    static let shared = SoapBubbleManager()
 
     var swipableObjects: Set<SoapBubbleObject> = Set()
 }
 
 public class SoapBubbleObject: NSObject {
 
-    var scale: CGFloat = 0.75
+    public var scale: CGFloat = 0.75
 
     private weak var targetView: UIView!
+    weak var delegate: SoapBubbleSource!
 
     private var originalX: CGFloat = 0
     private var actionsView: ActionsView?
@@ -200,18 +201,15 @@ extension SoapBubbleObject {
         self.actionsView?.removeFromSuperview()
         self.actionsView = nil
 
-//        guard let indexPath = tableNode.indexPath(for: self),
-//            let source = tableNode.swipableCellDelegate,
-//            source.swipe_tableNode(tableNode, canEditRowAt: indexPath) else { return false }
-//
-//        let actions = source.swipe_tableNode(tableNode, editActionsOptionsForRowAt: indexPath)
-        let deleteAction = SoapBubbleAction(title: "删除", handler: nil)
-        let markAction = SoapBubbleAction(title: "标记", handler: nil)
-        let actionsView = ActionsView(actions: [markAction, deleteAction])
+        guard delegate.canSwipe(in: self) else { return false }
+
+        let actions = delegate.actions(in: self)
+        let actionsView = ActionsView(actions: actions)
         actionsView.leftMoveWhenConfirm = { [weak self] in
 
             guard let strongSelf = self else { return }
             strongSelf.targetView.frame.origin.x = -actionsView.preferredWidth
+            actionsView.superview?.layoutIfNeeded()
         }
 
         if let superView = targetView.superview {
@@ -231,15 +229,15 @@ extension SoapBubbleObject {
         actionsView.superview?.layoutIfNeeded()
 
         self.actionsView = actionsView
-        SwipableManager.shared.swipableObjects.insert(self)
+        SoapBubbleManager.shared.swipableObjects.insert(self)
         return true
     }
 
     private func reset() {
         actionsView?.removeFromSuperview()
         actionsView = nil
-        if SwipableManager.shared.swipableObjects.contains(self) {
-            SwipableManager.shared.swipableObjects.remove(self)
+        if SoapBubbleManager.shared.swipableObjects.contains(self) {
+            SoapBubbleManager.shared.swipableObjects.remove(self)
         }
     }
 
@@ -317,7 +315,7 @@ extension SoapBubbleObject: UIGestureRecognizerDelegate {
 
     open func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
 
-        let swipeCells = SwipableManager.shared.swipableObjects.filter({ $0.actionHead.brain.state == .showing || $0.actionHead.brain.state == .hiding })
+        let swipeCells = SoapBubbleManager.shared.swipableObjects.filter({ $0.actionHead.brain.state == .showing || $0.actionHead.brain.state == .hiding })
         if gestureRecognizer == panGestureRecognizer,
             let view = gestureRecognizer.view,
             let gestureRecognizer = gestureRecognizer as? UIPanGestureRecognizer {
@@ -351,6 +349,7 @@ public class SoapBubble {
         didSet {
             guard let swipableDelegate = swipableDelegate, oldValue == nil else { return }
             object = SoapBubbleObject(targetView: swipableDelegate.targetView())
+            object?.delegate = swipableDelegate
         }
     }
 }

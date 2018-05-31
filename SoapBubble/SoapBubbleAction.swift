@@ -1,5 +1,5 @@
 //
-//  SwipedAction.swift
+//  SoapBubbleAction.swift
 //  EditTableViewCell
 //
 //  Created by ancheng on 2018/5/18.
