@@ -24,8 +24,6 @@ class TestTableViewController: UIViewController {
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
 
         tableView.dataSource = self
-        tableView.delegate = self
-        tableView.swipableCellDelegate = self
         tableView.register(DemoTableViewCell.self, forCellReuseIdentifier: "DemoTableViewCell")
     }
 
@@ -39,46 +37,29 @@ extension TestTableViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "DemoTableViewCell", for: indexPath) as! DemoTableViewCell
-        cell.tableView = tableView
+        cell.actions = {
+            let deleteAction = SoapBubbleAction(title: "删除") { [weak self, weak tableView] (_) in
+                self?.count -= 1
+                tableView?.deleteRows(at: [indexPath], with: .automatic)
+            }
+            deleteAction.needConfirm = .custom(title: "确认删除")
+            let unreadAction = SoapBubbleAction(title: "标记未读") { (_) in
+
+            }
+            unreadAction.needConfirm = .custom(title: "确认删除")
+            unreadAction.backgroundColor = .gray
+
+            if indexPath.row % 3 == 0 {
+                deleteAction.preferredWidth = 100
+            }
+
+            if indexPath.row % 2 == 1 {
+                return [unreadAction, deleteAction]
+            } else {
+                return [deleteAction]
+            }
+        }
         cell.textLabel?.text = "哈哈哈哈哈哈哈哈哈哈"
         return cell
     }
 }
-
-extension TestTableViewController: UITableViewDelegate {
-
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-}
-
-extension TestTableViewController: UITableViewSwipableCellDelegate {
-
-    func swipe_tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath) -> [SwipedAction] {
-        let deleteAction = SwipedAction(title: "删除") { [weak self, weak tableView] (_) in
-            self?.count -= 1
-            tableView?.deleteRows(at: [indexPath], with: .automatic)
-        }
-        deleteAction.needConfirm = .custom(title: "确认删除")
-        let unreadAction = SwipedAction(title: "标记未读") { (_) in
-
-        }
-        unreadAction.needConfirm = .custom(title: "确认删除")
-        unreadAction.backgroundColor = .gray
-
-        if indexPath.row % 3 == 0 {
-            deleteAction.preferredWidth = 100
-        }
-
-        if indexPath.row % 2 == 1 {
-            return [unreadAction, deleteAction]
-        } else {
-            return [deleteAction]
-        }
-    }
-
-    func swipe_tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-}
-

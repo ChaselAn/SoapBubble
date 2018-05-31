@@ -8,26 +8,22 @@
 
 import UIKit
 
-//typealias SwipableTargetView = UIView
-public protocol SwipableSource: class {
-
-//    func targetView(_ targetView: UIView)
-//    func swipableTargetView(_ targetView: UIView, editActionsOptionsForRowAt indexPath: IndexPath) -> [SwipedAction]
-//
-//    func swipableTargetView(_ targetView: UIView, canEditRowAt indexPath: IndexPath) -> Bool
+public protocol SoapBubbleSource: class {
 
     func targetView() -> UIView
 
+    func actions(in object: SoapBubbleObject) -> [SoapBubbleAction]
+
+    func canSwipe(in object: SoapBubbleObject) -> Bool
 }
 
 class SwipableManager {
     static let shared = SwipableManager()
 
-    var swipableObjects: Set<SwipableObject> = Set()
-
+    var swipableObjects: Set<SoapBubbleObject> = Set()
 }
 
-public class SwipableObject: NSObject {
+public class SoapBubbleObject: NSObject {
 
     var scale: CGFloat = 0.75
 
@@ -56,7 +52,6 @@ public class SwipableObject: NSObject {
         self.targetView = targetView
         super.init()
 
-        targetView.clipsToBounds = false
         targetView.addGestureRecognizer(panGestureRecognizer)
         targetView.addGestureRecognizer(tapGestureRecognizer)
 
@@ -105,15 +100,6 @@ public class SwipableObject: NSObject {
         print("---------------------")
     }
 
-//    override open func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-//
-//        return contains(point: point)
-//    }
-//
-//    private func contains(point: CGPoint) -> Bool {
-//        return point.y > frame.minY && point.y < frame.maxY
-//    }
-
     public func hideSwipe(animated: Bool, completion: ((Bool) -> Void)? = nil) {
         actionHead.brain.dispatch(.hide(animated, completion))
     }
@@ -140,16 +126,10 @@ public class SwipableObject: NSObject {
 }
 
 // MARK: - handle head command
-extension SwipableObject {
+extension SoapBubbleObject {
 
     private func beginPan(panGesture: UIPanGestureRecognizer) {
-//        guard let tableNode = tableNode,
-//            let indexPath = tableNode.indexPath(for: self),
-//            let source = tableNode.swipableCellDelegate,
-//            source.swipe_tableNode(tableNode, canEditRowAt: indexPath) else {
-//                view.removeGestureRecognizer(panGesture)
-//                return
-//        }
+
         stopAnimatorIfNeeded()
         originalX = targetView.frame.origin.x
         guard let target = panGesture.view else { return }
@@ -158,8 +138,9 @@ extension SwipableObject {
     }
 
     private func panning(panGesture: UIPanGestureRecognizer) {
-//        guard let tableNode = tableNode else { return }
+
         guard let target = panGesture.view else { return }
+
         let translationX = panGesture.translation(in: target).x * scale
         var offsetX = originalX + translationX
         if offsetX > 0 {
@@ -211,17 +192,10 @@ extension SwipableObject {
 }
 
 // MARK: - handle actionHead command
-extension SwipableObject {
+extension SoapBubbleObject {
 
     @discardableResult
     private func showActionsView() -> Bool {
-
-//        guard let tableNode = tableNode else { return false }
-//
-//        super.isHighlighted = false
-
-//        let selectedIndexPaths = targetTableView.indexPathsForSelectedRows
-//        selectedIndexPaths?.forEach { targetTableView.deselectRow(at: $0, animated: false) }
 
         self.actionsView?.removeFromSuperview()
         self.actionsView = nil
@@ -231,8 +205,8 @@ extension SwipableObject {
 //            source.swipe_tableNode(tableNode, canEditRowAt: indexPath) else { return false }
 //
 //        let actions = source.swipe_tableNode(tableNode, editActionsOptionsForRowAt: indexPath)
-        let deleteAction = SwipedAction(title: "删除", handler: nil)
-        let markAction = SwipedAction(title: "标记", handler: nil)
+        let deleteAction = SoapBubbleAction(title: "删除", handler: nil)
+        let markAction = SoapBubbleAction(title: "标记", handler: nil)
         let actionsView = ActionsView(actions: [markAction, deleteAction])
         actionsView.leftMoveWhenConfirm = { [weak self] in
 
@@ -240,7 +214,11 @@ extension SwipableObject {
             strongSelf.targetView.frame.origin.x = -actionsView.preferredWidth
         }
 
-        targetView.addSubview(actionsView)
+        if let superView = targetView.superview {
+            superView.addSubview(actionsView)
+        } else {
+            targetView.addSubview(actionsView)
+        }
 
         actionsView.translatesAutoresizingMaskIntoConstraints = false
         actionsView.heightAnchor.constraint(equalTo: targetView.heightAnchor).isActive = true
@@ -250,7 +228,7 @@ extension SwipableObject {
         actionsView.leftAnchor.constraint(equalTo: targetView.rightAnchor).isActive = true
 
         actionsView.setNeedsUpdateConstraints()
-        targetView.layoutIfNeeded()
+        actionsView.superview?.layoutIfNeeded()
 
         self.actionsView = actionsView
         SwipableManager.shared.swipableObjects.insert(self)
@@ -258,7 +236,6 @@ extension SwipableObject {
     }
 
     private func reset() {
-//        targetView.clipsToBounds = false
         actionsView?.removeFromSuperview()
         actionsView = nil
         if SwipableManager.shared.swipableObjects.contains(self) {
@@ -276,6 +253,7 @@ extension SwipableObject {
         } else {
             targetView.frame.origin = CGPoint(x: 0, y: targetView.frame.origin.y)
 
+            actionsView?.superview?.layoutIfNeeded()
             targetView.layoutIfNeeded()
             actionHead.brain.dispatch(.reset)
         }
@@ -284,7 +262,7 @@ extension SwipableObject {
     private func animate(duration: Double = 0.7, toOffset offset: CGFloat, withInitialVelocity velocity: CGFloat = 0, isConfirming: Bool = false, fromHideAction: Bool = false, completion: ((Bool) -> Void)? = nil) {
 
         stopAnimatorIfNeeded()
-        targetView.layoutIfNeeded()
+        actionsView?.superview?.layoutIfNeeded()
 
         if offset == 0, targetView.frame.origin.x >= -30 {
             targetView.frame.origin.x = 0
@@ -315,7 +293,7 @@ extension SwipableObject {
                 self.actionsView?.setProgress(offset <= 0 ? 1 : 0)
             }
 
-            self.targetView.layoutIfNeeded()
+            self.actionsView?.superview?.layoutIfNeeded()
         })
 
         if let completion = completion {
@@ -335,7 +313,7 @@ extension SwipableObject {
 
 }
 
-extension SwipableObject: UIGestureRecognizerDelegate {
+extension SoapBubbleObject: UIGestureRecognizerDelegate {
 
     open func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
 
@@ -366,22 +344,35 @@ extension SwipableObject: UIGestureRecognizerDelegate {
 }
 
 public class SoapBubble {
-    static let shared = SoapBubble()
 
-    private var objects: [SwipableObject] = []
+    private var object: SoapBubbleObject?
 
-    public var swipableDelegate: SwipableSource? {
+    public var swipableDelegate: SoapBubbleSource? {
         didSet {
-            guard let swipableDelegate = swipableDelegate, oldValue != nil else { return }
-            objects.append(SwipableObject(targetView: swipableDelegate.targetView()))
+            guard let swipableDelegate = swipableDelegate, oldValue == nil else { return }
+            object = SoapBubbleObject(targetView: swipableDelegate.targetView())
         }
     }
 }
 
 extension UIView {
 
+    private static var soapBubbleKey: Character!
+
+    private var _soapBubble: SoapBubble? {
+        set {
+            objc_setAssociatedObject(self, &UIView.soapBubbleKey, newValue, .OBJC_ASSOCIATION_RETAIN)
+        }
+        get {
+            return objc_getAssociatedObject(self, &UIView.soapBubbleKey) as? SoapBubble
+        }
+    }
+
     public var soapBubble: SoapBubble {
-        return SoapBubble.shared
+        if _soapBubble == nil {
+            _soapBubble = SoapBubble()
+        }
+        return _soapBubble!
     }
 
 }

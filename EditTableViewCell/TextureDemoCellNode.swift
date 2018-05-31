@@ -10,7 +10,7 @@ import UIKit
 import AsyncDisplayKit
 import SoapBubble
 
-class TextureDemoCellNode: ASCellNode, SwipableSource {
+class TextureDemoCellNode: ASCellNode {
 
     let textNode = ASTextNode()
 
@@ -18,7 +18,7 @@ class TextureDemoCellNode: ASCellNode, SwipableSource {
         super.init()
 
         view.backgroundColor = UIColor.green
-        view.soapBubble.swipableDelegate = self
+//        view.soapBubble.swipableDelegate = self
 
         addSubnode(textNode)
         textNode.attributedText = NSAttributedString(string: "哈哈哈哈哈哈哈哈哈哈", attributes: [.foregroundColor: UIColor.black])

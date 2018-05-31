@@ -17,9 +17,9 @@ class ActionsView: UIView {
 
     var leftMoveWhenConfirm: (() -> Void)?
 
-    private let actions: [SwipedAction]
+    private let actions: [SoapBubbleAction]
 
-    init(actions: [SwipedAction]) {
+    init(actions: [SoapBubbleAction]) {
         self.actions = actions
         super.init(frame: .zero)
 
@@ -75,13 +75,13 @@ class ActionView: UIView {
     var toX: CGFloat = 0
 
     private var titleLabel = UILabel()
-    private let action: SwipedAction
+    private let action: SoapBubbleAction
     private var widthConstraint: NSLayoutConstraint?
     private var leadingConstraint: NSLayoutConstraint?
 
     private(set) var isConfirming = false
 
-    init(action: SwipedAction) {
+    init(action: SoapBubbleAction) {
         self.action = action
         super.init(frame: CGRect.zero)
 

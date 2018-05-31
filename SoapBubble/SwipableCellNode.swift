@@ -10,7 +10,7 @@ import UIKit
 import AsyncDisplayKit
 
 public protocol ASTableNodeSwipableDelegate: class {
-    func swipe_tableNode(_ tableNode: ASTableNode, editActionsOptionsForRowAt indexPath: IndexPath) -> [SwipedAction]
+    func swipe_tableNode(_ tableNode: ASTableNode, editActionsOptionsForRowAt indexPath: IndexPath) -> [SoapBubbleAction]
 
     func swipe_tableNode(_ tableNode: ASTableNode, canEditRowAt indexPath: IndexPath) -> Bool
 }

@@ -9,7 +9,7 @@
 import UIKit
 
 public protocol UITableViewSwipableCellDelegate: class {
-    func swipe_tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath) -> [SwipedAction]
+    func swipe_tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath) -> [SoapBubbleAction]
 
     func swipe_tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool
 }

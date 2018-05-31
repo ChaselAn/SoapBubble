@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class SwipedAction {
+public class SoapBubbleAction {
 
     public enum ConfirmStyle {
         case none
@@ -22,16 +22,16 @@ public class SwipedAction {
     public var preferredWidth: CGFloat?
     public var needConfirm = ConfirmStyle.none
     public var horizontalMargin: CGFloat = 10
-    public var handler: ((SwipedAction) -> Void)?
+    public var handler: ((SoapBubbleAction) -> Void)?
 
     public var isEnabled: Bool = true
 
-    public init(title: String, handler: ((SwipedAction) -> Void)?) {
+    public init(title: String, handler: ((SoapBubbleAction) -> Void)?) {
         self.title = title
         self.handler = handler
     }
 
-    public init(title: String, backgroundColor: UIColor, titleColor: UIColor, titleFont: UIFont, preferredWidth: CGFloat?, handler: ((SwipedAction) -> Void)?) {
+    public init(title: String, backgroundColor: UIColor, titleColor: UIColor, titleFont: UIFont, preferredWidth: CGFloat?, handler: ((SoapBubbleAction) -> Void)?) {
         self.title = title
         self.backgroundColor = backgroundColor
         self.titleColor = titleColor

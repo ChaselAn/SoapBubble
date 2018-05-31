@@ -9,9 +9,9 @@
 import UIKit
 import SoapBubble
 
-class DemoTableViewCell: UITableViewCell, SwipableSource {
+class DemoTableViewCell: UITableViewCell, SoapBubbleSource {
 
-    weak var tableView: UITableView!
+    var actions: (() -> [SoapBubbleAction])?
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -25,5 +25,13 @@ class DemoTableViewCell: UITableViewCell, SwipableSource {
 
     func targetView() -> UIView {
         return self
+    }
+
+    func canSwipe(in object: SoapBubbleObject) -> Bool {
+        return true
+    }
+
+    func actions(in object: SoapBubbleObject) -> [SoapBubbleAction] {
+        return actions?() ?? []
     }
 }
