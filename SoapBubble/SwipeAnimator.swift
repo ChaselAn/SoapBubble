@@ -8,40 +8,17 @@
 import UIKit
 
 protocol SwipeAnimator {
-    /// A Boolean value indicating whether the animation is currently running.
+
     var isRunning: Bool { get }
 
-    /**
-     The animation to be run by the SwipeAnimator
-
-     - parameter animation: The closure to be executed by the animator
-     */
     func addAnimations(_ animation: @escaping () -> Void)
 
-    /**
-     Completion handler for the animation that is going to be started
-
-     - parameter completion: The closure to be execute on completion of the animator
-     */
     func addCompletion(completion: @escaping (Bool) -> Void)
 
-    /**
-     Starts the defined animation
-     */
     func startAnimation()
 
-    /**
-     Starts the defined animation after the given delay
-
-     - parameter delay: Delay of the animation
-     */
     func startAnimation(afterDelay delay: TimeInterval)
 
-    /**
-     Stops the animations at their current positions.
-
-     - parameter withoutFinishing: A Boolean indicating whether any final actions should be performed.
-     */
     func stopAnimation(_ withoutFinishing: Bool)
 }
 

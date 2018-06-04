@@ -24,7 +24,6 @@
 		F1B8E38020B3CE71001EBEA6 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A694612069E53000F70814 /* Extension.swift */; };
 		F1B8E38220B3CE71001EBEA6 /* SwipeAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A6945E2068EA2800F70814 /* SwipeAnimator.swift */; };
 		F1B8E38320B3CE71001EBEA6 /* SoapBubbleAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DD7E1720AE76860029C3AD /* SoapBubbleAction.swift */; };
-		F1B8E38520B3CE71001EBEA6 /* SwipableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DD7E2020AE803F0029C3AD /* SwipableCell.swift */; };
 		F1B8E38620B3CE71001EBEA6 /* SwipableHead.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BCE8B720AAD88C00166590 /* SwipableHead.swift */; };
 		F1B8E38720B3CE71001EBEA6 /* ActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DD7E1920AE77360029C3AD /* ActionsView.swift */; };
 		F1DD7E1C20AE7ACD0029C3AD /* TestTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DD7E1B20AE7ACD0029C3AD /* TestTableViewController.swift */; };
@@ -83,7 +82,6 @@
 		F1DD7E1920AE77360029C3AD /* ActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsView.swift; sourceTree = "<group>"; };
 		F1DD7E1B20AE7ACD0029C3AD /* TestTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTableViewController.swift; sourceTree = "<group>"; };
 		F1DD7E1D20AE7ADC0029C3AD /* TestASTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestASTableViewController.swift; sourceTree = "<group>"; };
-		F1DD7E2020AE803F0029C3AD /* SwipableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipableCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,7 +169,6 @@
 				F1A694612069E53000F70814 /* Extension.swift */,
 				F1DD7E1920AE77360029C3AD /* ActionsView.swift */,
 				F1DD7E1720AE76860029C3AD /* SoapBubbleAction.swift */,
-				F1DD7E2020AE803F0029C3AD /* SwipableCell.swift */,
 				F13A4EF620BE4C1B00F85B83 /* SoapBubbleObject.swift */,
 				F15259D520C4E68300B4EF7F /* SoapBubble.swift */,
 				F1BCE8B720AAD88C00166590 /* SwipableHead.swift */,
@@ -376,7 +373,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F1B8E38720B3CE71001EBEA6 /* ActionsView.swift in Sources */,
-				F1B8E38520B3CE71001EBEA6 /* SwipableCell.swift in Sources */,
 				F15259D620C4E68300B4EF7F /* SoapBubble.swift in Sources */,
 				F1B8E38220B3CE71001EBEA6 /* SwipeAnimator.swift in Sources */,
 				F1B8E38020B3CE71001EBEA6 /* Extension.swift in Sources */,

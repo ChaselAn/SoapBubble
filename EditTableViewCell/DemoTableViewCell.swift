@@ -27,10 +27,6 @@ class DemoTableViewCell: UITableViewCell, SoapBubbleSource {
         return self
     }
 
-    func canSwipe(in object: SoapBubbleObject) -> Bool {
-        return true
-    }
-
     func actions(in object: SoapBubbleObject) -> [SoapBubbleAction] {
         return actions?() ?? []
     }

@@ -22,6 +22,10 @@ public class SoapBubble {
 
     // If true, when there are multiple SoapBubbles, click or slide other SoapBubbles to hide all but the current SoapBubble. Default is true
     public var hideAllShowedSoapBubbleWhenTouch = true
+
+    public func hide() {
+        object?.hideSwipe(animated: true)
+    }
 }
 
 extension UIView {
