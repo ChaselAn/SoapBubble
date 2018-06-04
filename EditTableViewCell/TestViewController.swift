@@ -21,7 +21,7 @@ class TestViewController: UIViewController {
         testView.backgroundColor = UIColor.black
         testView.frame = CGRect(x: 100, y: 100, width: 100, height: 100)
         testView.soapBubble.swipableDelegate = self
-
+        testView.soapBubble.isEnable = false
         view.addSubview(testView)
     }
 

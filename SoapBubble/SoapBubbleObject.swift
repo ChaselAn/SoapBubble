@@ -320,6 +320,8 @@ extension SoapBubbleObject: UIGestureRecognizerDelegate {
             let view = gestureRecognizer.view,
             let gestureRecognizer = gestureRecognizer as? UIPanGestureRecognizer {
 
+            guard targetView.soapBubble.isEnable else { return false }
+
             let translation = gestureRecognizer.translation(in: view)
             if actionHead.brain.state != .showing && abs(translation.y) <= abs(translation.x) {
                 if targetView.soapBubble.hideAllShowedSoapBubbleWhenTouch {
@@ -330,6 +332,9 @@ extension SoapBubbleObject: UIGestureRecognizerDelegate {
         }
 
         if gestureRecognizer == tapGestureRecognizer {
+
+            guard targetView.soapBubble.isEnable else { return false }
+
             if actionHead.brain.state == .showing {
                 return true
             }
