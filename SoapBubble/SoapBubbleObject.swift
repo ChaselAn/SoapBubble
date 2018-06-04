@@ -2,8 +2,8 @@
 //  SoapBubbleObject.swift
 //  SoapBubble
 //
-//  Created by ancheng on 2018/5/30.
-//  Copyright © 2018年 ancheng. All rights reserved.
+//  Created by chaselan on 2018/5/30.
+//  Copyright © 2018年 chaselan. All rights reserved.
 //
 
 import UIKit
@@ -14,7 +14,6 @@ public protocol SoapBubbleSource: class {
 
     func actions(in object: SoapBubbleObject) -> [SoapBubbleAction]
 
-    func canSwipe(in object: SoapBubbleObject) -> Bool
 }
 
 class SoapBubbleManager {
@@ -201,7 +200,7 @@ extension SoapBubbleObject {
         self.actionsView?.removeFromSuperview()
         self.actionsView = nil
 
-        guard delegate.canSwipe(in: self) else { return false }
+        guard targetView.soapBubble.isEnable else { return false }
 
         let actions = delegate.actions(in: self)
         let actionsView = ActionsView(actions: actions)
@@ -319,10 +318,13 @@ extension SoapBubbleObject: UIGestureRecognizerDelegate {
         if gestureRecognizer == panGestureRecognizer,
             let view = gestureRecognizer.view,
             let gestureRecognizer = gestureRecognizer as? UIPanGestureRecognizer {
-            if actionHead.brain.state != .showing {
-                swipeCells.forEach({ $0.hideSwipe(animated: true) })
-            }
+
             let translation = gestureRecognizer.translation(in: view)
+            if actionHead.brain.state != .showing && abs(translation.y) <= abs(translation.x) {
+                if targetView.soapBubble.hideAllShowedSoapBubbleWhenTouch {
+                    swipeCells.forEach({ $0.hideSwipe(animated: true) })
+                }
+            }
             return abs(translation.y) <= abs(translation.x)
         }
 
@@ -331,7 +333,9 @@ extension SoapBubbleObject: UIGestureRecognizerDelegate {
                 return true
             }
             if swipeCells.count != 0 {
-                swipeCells.forEach({ $0.hideSwipe(animated: true) })
+                if targetView.soapBubble.hideAllShowedSoapBubbleWhenTouch {
+                    swipeCells.forEach({ $0.hideSwipe(animated: true) })
+                }
                 return true
             }
             return false
@@ -339,39 +343,4 @@ extension SoapBubbleObject: UIGestureRecognizerDelegate {
 
         return true
     }
-}
-
-public class SoapBubble {
-
-    private var object: SoapBubbleObject?
-
-    public var swipableDelegate: SoapBubbleSource? {
-        didSet {
-            guard let swipableDelegate = swipableDelegate, oldValue == nil else { return }
-            object = SoapBubbleObject(targetView: swipableDelegate.targetView())
-            object?.delegate = swipableDelegate
-        }
-    }
-}
-
-extension UIView {
-
-    private static var soapBubbleKey: Character!
-
-    private var _soapBubble: SoapBubble? {
-        set {
-            objc_setAssociatedObject(self, &UIView.soapBubbleKey, newValue, .OBJC_ASSOCIATION_RETAIN)
-        }
-        get {
-            return objc_getAssociatedObject(self, &UIView.soapBubbleKey) as? SoapBubble
-        }
-    }
-
-    public var soapBubble: SoapBubble {
-        if _soapBubble == nil {
-            _soapBubble = SoapBubble()
-        }
-        return _soapBubble!
-    }
-
 }

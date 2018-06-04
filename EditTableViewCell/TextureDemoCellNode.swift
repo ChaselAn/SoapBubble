@@ -2,23 +2,24 @@
 //  TextureDemoCellNode.swift
 //  EditTableViewCell
 //
-//  Created by ancheng on 2018/3/29.
-//  Copyright © 2018年 ancheng. All rights reserved.
+//  Created by chaselan on 2018/3/29.
+//  Copyright © 2018年 chaselan. All rights reserved.
 //
 
 import UIKit
 import AsyncDisplayKit
 import SoapBubble
 
-class TextureDemoCellNode: ASCellNode {
+class TextureDemoCellNode: ASCellNode, SoapBubbleSource {
 
     let textNode = ASTextNode()
+    var actions: (() -> [SoapBubbleAction])?
 
     override init() {
         super.init()
 
         view.backgroundColor = UIColor.green
-//        view.soapBubble.swipableDelegate = self
+        view.soapBubble.swipableDelegate = self
 
         addSubnode(textNode)
         textNode.attributedText = NSAttributedString(string: "哈哈哈哈哈哈哈哈哈哈", attributes: [.foregroundColor: UIColor.black])
@@ -37,5 +38,13 @@ class TextureDemoCellNode: ASCellNode {
 
     func targetView() -> UIView {
         return view
+    }
+
+    func canSwipe(in object: SoapBubbleObject) -> Bool {
+        return true
+    }
+
+    func actions(in object: SoapBubbleObject) -> [SoapBubbleAction] {
+        return actions?() ?? []
     }
 }

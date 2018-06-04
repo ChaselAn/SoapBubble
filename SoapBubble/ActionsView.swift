@@ -2,8 +2,8 @@
 //  ActionsView.swift
 //  EditTableViewCell
 //
-//  Created by ancheng on 2018/5/18.
-//  Copyright © 2018年 ancheng. All rights reserved.
+//  Created by chaselan on 2018/5/18.
+//  Copyright © 2018年 chaselan. All rights reserved.
 //
 
 import UIKit
@@ -69,7 +69,7 @@ class ActionView: UIView {
     var confirmAnimationCompleted: (() -> Void)?
 
     var widthConst: CGFloat {
-        return action.preferredWidth ?? (action.title.getWidth(withFont: action.titleFont) + 2 * margin)
+        return action.preferredWidth ?? (action.title.soapBubble_getWidth(withFont: action.titleFont) + 2 * margin)
     }
 
     var toX: CGFloat = 0
@@ -127,14 +127,14 @@ class ActionView: UIView {
                 [weak self] in
                 guard let strongSelf = self else { return }
                 self?.frame.origin.x = 0
-                self?.widthConstraint?.constant = title.getWidth(withFont: strongSelf.action.titleFont)
+                self?.widthConstraint?.constant = title.soapBubble_getWidth(withFont: strongSelf.action.titleFont)
                 if let superView = strongSelf.superview as? ActionsView {
-                    let deleteWidth = title.getWidth(withFont: strongSelf.action.titleFont) + 2 * strongSelf.margin
+                    let deleteWidth = title.soapBubble_getWidth(withFont: strongSelf.action.titleFont) + 2 * strongSelf.margin
                     if superView.preferredWidth < deleteWidth {
                         superView.preferredWidth = deleteWidth
                         strongSelf.leftMoveWhenConfirm?()
                     } else {
-                        strongSelf.leadingConstraint?.constant = (superView.preferredWidth - title.getWidth(withFont: strongSelf.action.titleFont)) / 2
+                        strongSelf.leadingConstraint?.constant = (superView.preferredWidth - title.soapBubble_getWidth(withFont: strongSelf.action.titleFont)) / 2
                     }
                 }
                 strongSelf.layoutIfNeeded()
