@@ -28,6 +28,7 @@
 		F1B8E38720B3CE71001EBEA6 /* ActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DD7E1920AE77360029C3AD /* ActionsView.swift */; };
 		F1DD7E1C20AE7ACD0029C3AD /* TestTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DD7E1B20AE7ACD0029C3AD /* TestTableViewController.swift */; };
 		F1DD7E1E20AE7ADC0029C3AD /* TestASTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DD7E1D20AE7ADC0029C3AD /* TestASTableViewController.swift */; };
+		F1F755A020C54801000DC9AE /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F7559F20C54801000DC9AE /* TestViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +83,7 @@
 		F1DD7E1920AE77360029C3AD /* ActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsView.swift; sourceTree = "<group>"; };
 		F1DD7E1B20AE7ACD0029C3AD /* TestTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTableViewController.swift; sourceTree = "<group>"; };
 		F1DD7E1D20AE7ADC0029C3AD /* TestASTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestASTableViewController.swift; sourceTree = "<group>"; };
+		F1F7559F20C54801000DC9AE /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +152,7 @@
 			children = (
 				F1A694252068908B00F70814 /* AppDelegate.swift */,
 				F1A694272068908B00F70814 /* ViewController.swift */,
+				F1F7559F20C54801000DC9AE /* TestViewController.swift */,
 				F1DD7E1D20AE7ADC0029C3AD /* TestASTableViewController.swift */,
 				F1DD7E1B20AE7ACD0029C3AD /* TestTableViewController.swift */,
 				F1A69437206891FC00F70814 /* DemoTableViewCell.swift */,
@@ -359,6 +362,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F1F755A020C54801000DC9AE /* TestViewController.swift in Sources */,
 				F1DD7E1C20AE7ACD0029C3AD /* TestTableViewController.swift in Sources */,
 				F1A69438206891FC00F70814 /* DemoTableViewCell.swift in Sources */,
 				F1B81A49206CF76900EBB056 /* TextureDemoCellNode.swift in Sources */,

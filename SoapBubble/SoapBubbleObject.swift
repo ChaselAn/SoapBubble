@@ -97,7 +97,7 @@ public class SoapBubbleObject: NSObject {
     }
 
     deinit {
-        print("---------------------")
+        print("-------------- object deinit")
     }
 
     public func hideSwipe(animated: Bool, completion: ((Bool) -> Void)? = nil) {
@@ -264,7 +264,7 @@ extension SoapBubbleObject {
         if offset == 0, targetView.frame.origin.x >= -30 {
             targetView.frame.origin.x = 0
             if !isConfirming {
-                self.actionsView?.setProgress(offset <= 0 ? 1 : 0)
+                actionsView?.setProgress(offset <= 0 ? 1 : 0)
             }
             completion?(true)
             return
@@ -282,15 +282,16 @@ extension SoapBubbleObject {
             }
         }()
 
-        animator.addAnimations({
+        animator.addAnimations({ [weak self] in
+            guard let strongSelf = self else { return }
 
-            self.targetView.frame.origin = CGPoint(x: offset, y: self.targetView.frame.origin.y)
+            strongSelf.targetView.frame.origin = CGPoint(x: offset, y: strongSelf.targetView.frame.origin.y)
 
             if !isConfirming {
-                self.actionsView?.setProgress(offset <= 0 ? 1 : 0)
+                strongSelf.actionsView?.setProgress(offset <= 0 ? 1 : 0)
             }
 
-            self.actionsView?.superview?.layoutIfNeeded()
+            strongSelf.actionsView?.superview?.layoutIfNeeded()
         })
 
         if let completion = completion {

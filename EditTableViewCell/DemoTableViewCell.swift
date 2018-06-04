@@ -30,4 +30,8 @@ class DemoTableViewCell: UITableViewCell, SoapBubbleSource {
     func actions(in object: SoapBubbleObject) -> [SoapBubbleAction] {
         return actions?() ?? []
     }
+
+    deinit {
+        print("--------------------- DemoTableViewCell deinit")
+    }
 }

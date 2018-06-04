@@ -11,6 +11,11 @@ import AsyncDisplayKit
 
 class ViewController: UIViewController {
 
+    private let tableView = UITableView()
+    private let dataSource = [("on UIView"),
+                              ("on UITableViewCell"),
+                              ("on ASCellNode(Texture)")]
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -26,6 +31,12 @@ class ViewController: UIViewController {
 
         view.addSubview(tableViewButton)
         view.addSubview(asTableViewButton)
+
+        tableView.frame = view.bounds
+        tableView.delegate = self
+        tableView.dataSource = self
+//        tableView.contentInset = UIEdgeInsets(top: 64, left: 0, bottom: 0, right: 0)
+        view.addSubview(tableView)
     }
 
     @objc private func tableViewButtonClicked() {
@@ -36,5 +47,33 @@ class ViewController: UIViewController {
     @objc private func asTableViewButtonClicked() {
         let tableVC = TestASTableViewController()
         navigationController?.pushViewController(tableVC, animated: true)
+    }
+}
+
+extension ViewController: UITableViewDataSource, UITableViewDelegate {
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return dataSource.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: .default, reuseIdentifier: "a")
+        cell.textLabel?.text = dataSource[indexPath.row]
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc: UIViewController
+        switch indexPath.row {
+        case 0:
+            vc = TestViewController()
+        case 1:
+            vc = TestTableViewController()
+        case 2:
+            vc = TestASTableViewController()
+        default:
+            return
+        }
+        navigationController?.pushViewController(vc, animated: true)
     }
 }

@@ -27,6 +27,10 @@ class TestTableViewController: UIViewController {
         tableView.register(DemoTableViewCell.self, forCellReuseIdentifier: "DemoTableViewCell")
     }
 
+    deinit {
+        print("------------ tableView deinit")
+    }
+
 }
 
 extension TestTableViewController: UITableViewDataSource {

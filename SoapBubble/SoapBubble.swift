@@ -10,7 +10,7 @@ public class SoapBubble {
 
     private var object: SoapBubbleObject?
 
-    public var swipableDelegate: SoapBubbleSource? {
+    public weak var swipableDelegate: SoapBubbleSource? {
         didSet {
             guard let swipableDelegate = swipableDelegate, oldValue == nil else { return }
             object = SoapBubbleObject(targetView: swipableDelegate.targetView())
@@ -32,7 +32,7 @@ extension UIView {
 
     private static var soapBubbleKey: Character!
 
-    private var _soapBubble: SoapBubble? {
+    private weak var _soapBubble: SoapBubble? {
         set {
             objc_setAssociatedObject(self, &UIView.soapBubbleKey, newValue, .OBJC_ASSOCIATION_RETAIN)
         }
