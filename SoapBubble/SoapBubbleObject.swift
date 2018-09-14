@@ -29,7 +29,8 @@ public class SoapBubbleObject: NSObject {
     private weak var targetView: UIView!
     weak var delegate: SoapBubbleSource!
 
-    private var originalX: CGFloat = 0
+    private let originnalX: CGFloat
+    private var panOriginalX: CGFloat = 0
     private var actionsView: ActionsView?
     private var animator: SwipeAnimator?
 
@@ -50,6 +51,7 @@ public class SoapBubbleObject: NSObject {
 
     public init(targetView: UIView) {
         self.targetView = targetView
+        self.originnalX = targetView.frame.origin.x
         super.init()
 
         targetView.addGestureRecognizer(panGestureRecognizer)
@@ -85,7 +87,7 @@ public class SoapBubbleObject: NSObject {
             case .hide(let animated, let completion):
                 strongSelf.hideSwipeCommand(animated: animated, completion: completion)
             case .hideAnimate(let duration, let isConfirming, let isFromHideAction, let completion):
-                strongSelf.animate(duration: duration, toOffset: 0, isConfirming: isConfirming, fromHideAction: isFromHideAction, completion: completion)
+                strongSelf.animate(duration: duration, toOffset: strongSelf.originnalX, isConfirming: isConfirming, fromHideAction: isFromHideAction, completion: completion)
             case .showAnimate(let isConfirming, let toOffsetX, let initialVelocity, let completion):
                 strongSelf.animate(duration: 0.4, toOffset: toOffsetX, withInitialVelocity: initialVelocity, isConfirming: isConfirming, completion: completion)
             }
@@ -132,7 +134,7 @@ extension SoapBubbleObject {
     private func beginPan(panGesture: UIPanGestureRecognizer) {
 
         stopAnimatorIfNeeded()
-        originalX = targetView.frame.origin.x
+        panOriginalX = targetView.frame.origin.x
         guard let target = panGesture.view else { return }
         if panGesture.velocity(in: target).x > 0 { return }
         actionHead.brain.dispatch(.show)
@@ -143,9 +145,9 @@ extension SoapBubbleObject {
         guard let target = panGesture.view else { return }
 
         let translationX = panGesture.translation(in: target).x * scale
-        var offsetX = originalX + translationX
-        if offsetX > 0 {
-            target.frame.origin.x = 0
+        var offsetX = panOriginalX + translationX
+        if offsetX > originnalX {
+            target.frame.origin.x = originnalX
         } else {
             if offsetX < -targetView.bounds.width * 3 {
                 offsetX = -targetView.bounds.width * 3
@@ -162,15 +164,15 @@ extension SoapBubbleObject {
         }
         guard let target = panGesture.view else { return }
         let translationX = panGesture.translation(in: target).x * scale
-        if originalX + translationX >= 0 {
+        if panOriginalX + translationX >= originnalX {
             actionHead.brain.dispatch(.reset)
             return
         }
 
-        let offSetX = translationX < 0 ? -actionsView.preferredWidth : 0
+        let offSetX = translationX < 0 ? -actionsView.preferredWidth + originnalX : 0
         let velocity = panGesture.velocity(in: target)
 
-        let distance = -targetView.frame.origin.x
+        let distance = originnalX - targetView.frame.origin.x
         let normalizedVelocity = velocity.x / distance
 
         let completion: SwipableActionHead.AnimationCompletion = { [weak self] _ in
