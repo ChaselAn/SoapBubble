@@ -33,5 +33,6 @@ class DemoTableViewCell: UITableViewCell, SoapBubbleSource {
 
     deinit {
         print("--------------------- DemoTableViewCell deinit")
+        soapBubble.reset()
     }
 }

@@ -41,7 +41,7 @@ extension TestTableViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "DemoTableViewCell", for: indexPath) as! DemoTableViewCell
-        cell.actions = {
+        cell.actions = { [weak tableView, weak self] in
             let deleteAction = SoapBubbleAction(title: "删除") { [weak self, weak tableView] (_) in
                 self?.count -= 1
                 tableView?.deleteRows(at: [indexPath], with: .automatic)

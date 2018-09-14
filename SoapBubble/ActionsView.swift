@@ -60,7 +60,7 @@ class ActionsView: UIView {
     }
 
     deinit {
-        print("---------------------")
+        print("--------------------- ActionsView deinit")
     }
 }
 

@@ -12,7 +12,11 @@ public class SoapBubble {
 
     public weak var swipableDelegate: SoapBubbleSource? {
         didSet {
-            guard let swipableDelegate = swipableDelegate, oldValue == nil else { return }
+            guard let swipableDelegate = swipableDelegate else {
+                object?.reset()
+                object = nil
+                return
+            }
             object = SoapBubbleObject(targetView: swipableDelegate.targetView())
             object?.delegate = swipableDelegate
         }
@@ -25,6 +29,10 @@ public class SoapBubble {
 
     public func hide() {
         object?.hideSwipe(animated: true)
+    }
+
+    public func reset() {
+        object?.reset()
     }
 }
 

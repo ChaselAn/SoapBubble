@@ -21,22 +21,25 @@ class TestViewController: UIViewController {
         testView.backgroundColor = UIColor.black
         testView.frame = CGRect(x: 100, y: 100, width: 100, height: 100)
         testView.soapBubble.swipableDelegate = self
-        testView.soapBubble.isEnable = false
         view.addSubview(testView)
     }
 
     deinit {
         print("------------ vc deinit")
+        testView.soapBubble.reset()     
     }
 
 }
 
 extension TestViewController: SoapBubbleSource {
     func targetView() -> UIView {
-        return self.testView
+        return testView
     }
 
     func actions(in object: SoapBubbleObject) -> [SoapBubbleAction] {
-        return []
+        let action = SoapBubbleAction(title: "删除") { (_) in
+
+        }
+        return [action]
     }
 }

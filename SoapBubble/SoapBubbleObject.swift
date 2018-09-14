@@ -19,7 +19,7 @@ public protocol SoapBubbleSource: class {
 class SoapBubbleManager {
     static let shared = SoapBubbleManager()
 
-    var swipableObjects: Set<SoapBubbleObject> = Set()
+    var soapBubbleObjects: Set<SoapBubbleObject> = Set()
 }
 
 public class SoapBubbleObject: NSObject {
@@ -98,6 +98,7 @@ public class SoapBubbleObject: NSObject {
 
     deinit {
         print("-------------- object deinit")
+        reset()
     }
 
     public func hideSwipe(animated: Bool, completion: ((Bool) -> Void)? = nil) {
@@ -204,9 +205,9 @@ extension SoapBubbleObject {
 
         let actions = delegate.actions(in: self)
         let actionsView = ActionsView(actions: actions)
-        actionsView.leftMoveWhenConfirm = { [weak self] in
+        actionsView.leftMoveWhenConfirm = { [weak self, weak actionsView] in
 
-            guard let strongSelf = self else { return }
+            guard let strongSelf = self, let actionsView = actionsView else { return }
             strongSelf.targetView.frame.origin.x = -actionsView.preferredWidth
             actionsView.superview?.layoutIfNeeded()
         }
@@ -228,15 +229,15 @@ extension SoapBubbleObject {
         actionsView.superview?.layoutIfNeeded()
 
         self.actionsView = actionsView
-        SoapBubbleManager.shared.swipableObjects.insert(self)
+        SoapBubbleManager.shared.soapBubbleObjects.insert(self)
         return true
     }
 
-    private func reset() {
+    public func reset() {
         actionsView?.removeFromSuperview()
         actionsView = nil
-        if SoapBubbleManager.shared.swipableObjects.contains(self) {
-            SoapBubbleManager.shared.swipableObjects.remove(self)
+        if SoapBubbleManager.shared.soapBubbleObjects.contains(self) {
+            SoapBubbleManager.shared.soapBubbleObjects.remove(self)
         }
     }
 
@@ -315,7 +316,7 @@ extension SoapBubbleObject: UIGestureRecognizerDelegate {
 
     open func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
 
-        let swipeCells = SoapBubbleManager.shared.swipableObjects.filter({ $0.actionHead.brain.state == .showing || $0.actionHead.brain.state == .hiding })
+        let swipeCells = SoapBubbleManager.shared.soapBubbleObjects.filter({ $0.actionHead.brain.state == .showing || $0.actionHead.brain.state == .hiding })
         if gestureRecognizer == panGestureRecognizer,
             let view = gestureRecognizer.view,
             let gestureRecognizer = gestureRecognizer as? UIPanGestureRecognizer {
