@@ -121,7 +121,7 @@ class ActionView: UIView {
             isConfirming = true
             beConfirm?()
             titleLabel.text = title
-            superview?.bringSubview(toFront: self)
+            superview?.bringSubviewToFront(self)
 
             UIView.animate(withDuration: 0.15, delay: 0, options: [.allowUserInteraction], animations: {
                 [weak self] in
