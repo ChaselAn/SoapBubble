@@ -16,7 +16,7 @@ post_install do |installer_representation|
     installer_representation.pods_project.targets.each do |target|
         if target.name == "Texture" then
             target.build_configurations.each do |configuration|
-                if configuration.name.include?("Debug") then
+                if configuration.name.include?("Debug") || configuration.name.include?("Release") then
                     configuration.build_settings['ONLY_ACTIVE_ARCH'] = 'YES'
                 end
             end
