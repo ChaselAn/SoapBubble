@@ -4,7 +4,7 @@ use_frameworks!
 inhibit_all_warnings!
 
 target 'EditTableViewCell' do
-  pod 'Texture'
+    pod 'Texture', '2.7'
 
 end
 

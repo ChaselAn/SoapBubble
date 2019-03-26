@@ -14,16 +14,17 @@ PODS:
   - PINRemoteImage/PINCache (3.0.0-beta.13):
     - PINCache (= 3.0.1-beta.6)
     - PINRemoteImage/Core
-  - Texture (2.6):
-    - Texture/PINRemoteImage (= 2.6)
-  - Texture/Core (2.6)
-  - Texture/PINRemoteImage (2.6):
+  - Texture (2.7):
+    - Texture/PINRemoteImage (= 2.7)
+  - Texture/Core (2.7)
+  - Texture/PINRemoteImage (2.7):
     - PINRemoteImage/iOS (= 3.0.0-beta.13)
     - PINRemoteImage/PINCache
     - Texture/Core
 
 DEPENDENCIES:
   - Texture
+  - Texture (= 2.7)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -36,8 +37,8 @@ SPEC CHECKSUMS:
   PINCache: d195fdba255283f7e9900a55e3cced377f431f9b
   PINOperation: a6219e6fc9db9c269eb7a7b871ac193bcf400aac
   PINRemoteImage: d6d51c5d2adda55f1ce30c96e850b6c4ebd2856a
-  Texture: 7249074582daf75e524e59df5428b66b8e8db0e4
+  Texture: 9d7e38965cf22ccd7cd9c249dd78b3f14e70ab6c
 
-PODFILE CHECKSUM: 6086a74bf59d979b86eca4f5f53a53bad86f46ac
+PODFILE CHECKSUM: 8f25b6f1f79a2ce39ff181e6cb5a2c2be33490c3
 
-COCOAPODS: 1.5.2
+COCOAPODS: 1.5.3
